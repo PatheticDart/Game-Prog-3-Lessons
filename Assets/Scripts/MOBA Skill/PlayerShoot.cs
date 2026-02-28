@@ -6,14 +6,25 @@ public class PlayerShoot : MonoBehaviour
     public Transform firePoint;
     public float shootForce = 20f;
 
+    private SionUltimateSkill ultScript; // Add reference
+
+    void Start()
+    {
+        ultScript = GetComponent<SionUltimateSkill>(); // Grab the component
+    }
+
     void Update()
     {
+        // Check if charging. If so, exit the update loop early.
+        if (ultScript != null && ultScript.isCharging) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
     }
 
+    // ... Keep your existing Shoot() method exactly the same ...
     void Shoot()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
